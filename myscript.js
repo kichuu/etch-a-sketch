@@ -1,13 +1,33 @@
 document.addEventListener('DOMContentLoaded', function(){
 
-let divContainer = document.querySelector(".div-container")
+const gridside = 600;
+let squaresSide = 16;
+squaresSide = prompt( "enter num of squares", "16");
 
-for( let i=0;i<16;i++){
-    for(let j=0;j<16;j++){
-let div16 = document.createElement('div')
-div16.classList.add("grid-items")
-div16.textContent = "ji"
-divContainer.appendChild(div16)
+const sketchArea = document.querySelector("#sketchArea")
+
+function createCells() {
+    let numSquares = squaresSide * squaresSide;
+    for(let i = 0; i < numSquares; i++) {
+        const gridCells = document.createElement('div');
+        gridCells.classList.add("cells");
+        gridCells.style.width = `${(gridside / squaresSide) - 2}px`;
+        gridCells.style.height = `${(gridside / squaresSide) - 2}px`;
+        sketchArea.appendChild(gridCells);
+
+        gridCells.addEventListener('mousedown', function(event) {
+            draw(event.target);
+        });
+        gridCells.addEventListener('mouseenter', function(event) {
+            if (event.buttons === 1) {
+                draw(event.target);
+            }
+        });
     }
 }
+function draw(cell) {
+    cell.style.backgroundColor = 'black';
+}
+
+createCells();
 })
